@@ -8,4 +8,6 @@ jobs:
       - image: circleci/buildpack-deps
     steps:
       - checkout
-      - paddle/scripts/paddle_docker_build.sh ${JOB}
+      - run:
+        name: build script
+        command: paddle/scripts/paddle_docker_build.sh ${JOB}
