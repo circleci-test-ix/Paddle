@@ -4,8 +4,7 @@ jobs:
   build:
     environment:
       - JOB: check_style
-    docker:
-      - image: circleci/buildpack-deps
+    machine: true
     steps:
       - checkout
       - run:
