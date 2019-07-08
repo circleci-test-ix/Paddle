@@ -8,5 +8,13 @@ jobs:
     steps:
       - checkout
       - run:
+          name: pre install
+          command: |
+            sudo pip install pylint pytest astroid isort
+            function timeout() { perl -e 'alarm shift; exec @ARGV' "$@"; }
+      - run:
           name: build script
-          command: paddle/scripts/paddle_docker_build.sh ${JOB}
+          command: |            
+            # 43min timeout
+            paddle/scripts/paddle_docker_build.sh ${JOB}
+            if [ $? -eq 0 ] || [ $? -eq 142 ]; then true; else exit 1; fi;
