@@ -9,5 +9,5 @@ jobs:
     steps:
       - checkout
       - run:
-        name: build script
-        command: paddle/scripts/paddle_docker_build.sh ${JOB}
+          name: build script
+          command: paddle/scripts/paddle_docker_build.sh ${JOB}
