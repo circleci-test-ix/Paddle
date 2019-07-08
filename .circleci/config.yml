@@ -1,0 +1,11 @@
+version: 2.1
+
+jobs:
+  build:
+    environment:
+      - JOB: check_style
+    docker:
+      - image: circleci/buildpack-deps
+    steps:
+      - checkout
+      - paddle/scripts/paddle_docker_build.sh ${JOB}
