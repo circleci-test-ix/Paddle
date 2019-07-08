@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-app{{ checksum "package.json" }}
+          key: dependency-cache
       - run:
           name: pre install
           command: |
