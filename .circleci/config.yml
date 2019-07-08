@@ -7,9 +7,12 @@ jobs:
     machine: true
     steps:
       - checkout
+      - restore_cache:
+          key: dependency-cache-app{{ checksum "package.json" }}
       - run:
           name: pre install
           command: |
+            sudo pip install --upgrade pip setuptools
             sudo pip install pylint pytest astroid isort
             function timeout() { perl -e 'alarm shift; exec @ARGV' "$@"; }
       - run:
@@ -18,3 +21,9 @@ jobs:
             # 43min timeout
             paddle/scripts/paddle_docker_build.sh ${JOB}
             if [ $? -eq 0 ] || [ $? -eq 142 ]; then true; else exit 1; fi;
+      - save_cache:
+          key: dependency-cache
+          paths:
+            - ~/.ccache
+            - ~/.cache/pip
+            - /build/third_party
